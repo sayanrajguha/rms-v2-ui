@@ -1,0 +1,25 @@
+{
+  "name": "RMS v2.0 ui-client",
+  "version": "2.0",
+  "description": "RMS Portal for P.E.Erectors Pvt. Ltd. | upgrade v2.0 | built with React",
+  "main": "index.html",
+  "author": "Sayanraj Guha",
+  "devDependencies": {
+    "browserify": "*",
+    "gulp": "*",
+    "gulp-concat": "^2.6.0",
+    "gulp-html-replace": "^1.6.0",
+    "gulp-react": "^3.1.0",
+    "gulp-uglify": "^1.5.3",
+    "object-assign": "*",
+    "reactify": "*",
+    "vinyl-source-stream": "*"
+  },
+  "dependencies": {
+    "moment": "^2.13.0",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-router": "^2.4.1",
+    "reflux": "^0.4.1"
+  }
+}
