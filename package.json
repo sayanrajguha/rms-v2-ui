@@ -1,6 +1,6 @@
 {
-  "name": "RMS v2.0 ui-client",
-  "version": "2.0",
+  "name": "rms-v2-ui",
+  "version": "2.0.0",
   "description": "RMS Portal for P.E.Erectors Pvt. Ltd. | upgrade v2.0 | built with React",
   "main": "index.html",
   "author": "Sayanraj Guha",
