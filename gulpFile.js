@@ -11,7 +11,7 @@ gulp.task('browserify',function(){
         .transform('reactify')
         .bundle()
         .pipe(source('bundle.js'))
-        .pipe(gulp.dest('dist/js')) //we don't need to create this folder gulp will auto create this
+        .pipe(gulp.dest('./dist/js')) //we don't need to create this folder gulp will auto create this
 });
 
 //Then we create copy task
