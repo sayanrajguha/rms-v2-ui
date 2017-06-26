@@ -23,14 +23,6 @@ var Home = React.createClass({
       <div>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-sm-3 col-md-2 sidebar">
-              <ul className="nav nav-sidebar">
-                <li className="active"><a href="index.html">Home <span className="sr-only">(current)</span></a></li>
-                <li><a href="sites.html">Sites</a></li>
-                <li><a href="tools.html">Tools</a></li>
-                <li><a href="users.html">Users</a></li>
-              </ul>
-            </div>
             <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
               <h1 className="page-header">Welcome to your Dashboard, <span id="userName">&lt;user_name&gt;</span> </h1>
               <div className="content">

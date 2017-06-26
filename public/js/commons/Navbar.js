@@ -1,9 +1,7 @@
 /* import modules */
 var React = require('react');
 var ReactRouter = require('react-router');
-var Router = ReactRouter.Router;
 var Link = ReactRouter.Link;
-var browserHistory = ReactRouter.browserHistory;
 
 /* import components*/
 

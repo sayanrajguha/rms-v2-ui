@@ -25100,6 +25100,7 @@ module.exports = require('./lib/React');
 /* import modules */
 var React = require('react');
 var Navbar = require('./Navbar');
+var SideBar = require('./Sidebar');
 var Footer = require('./Footer');
 /* import components*/
 
@@ -25109,6 +25110,7 @@ var App = React.createClass( {displayName: "App",
     return (
       React.createElement("div", null, 
         React.createElement(Navbar, null), 
+        React.createElement(SideBar, null), 
         this.props.children, 
         React.createElement(Footer, null)
       )
@@ -25117,7 +25119,7 @@ var App = React.createClass( {displayName: "App",
 });
 module.exports = App;
 
-},{"./Footer":230,"./Navbar":231,"react":228}],230:[function(require,module,exports){
+},{"./Footer":230,"./Navbar":231,"./Sidebar":232,"react":228}],230:[function(require,module,exports){
 /* import modules */
 var React = require('react');
 var ReactRouter = require('react-router');
@@ -25146,9 +25148,7 @@ module.exports = Footer;
 /* import modules */
 var React = require('react');
 var ReactRouter = require('react-router');
-var Router = ReactRouter.Router;
 var Link = ReactRouter.Link;
-var browserHistory = ReactRouter.browserHistory;
 
 /* import components*/
 
@@ -25200,6 +25200,68 @@ var Navbar = React.createClass({displayName: "Navbar",
 module.exports = Navbar;
 
 },{"react":228,"react-router":33}],232:[function(require,module,exports){
+/* import modules */
+var React = require('react');
+var ReactRouter = require('react-router');
+var Link = ReactRouter.Link;
+
+/* import components*/
+
+
+/* create components */
+var SideBar = React.createClass({displayName: "SideBar",
+  render : function() {
+    return (
+        React.createElement("div", {className: "container-fluid"}, 
+            React.createElement("div", {className: "row"}, 
+                React.createElement("div", {className: "col-sm-3 col-md-2 sidebar"}, 
+                  React.createElement("ul", {className: "nav nav-sidebar"}, 
+                    React.createElement("li", {className: "active homeLI"}, React.createElement(Link, {to: "dashboard/home", onClick: this.selectCurrent.bind(this,'home')}, "Home")), 
+                    React.createElement("li", {className: "sitesLI"}, React.createElement(Link, {to: "dashboard/sites", onClick: this.selectCurrent.bind(this,'sites')}, "Sites")), 
+                    React.createElement("li", {className: "toolsLI"}, React.createElement(Link, {to: "dashboard/tools", onClick: this.selectCurrent.bind(this,'tools')}, "Tools")), 
+                    React.createElement("li", {className: "usersLI"}, React.createElement(Link, {to: "dashboard/users", onClick: this.selectCurrent.bind(this,'users')}, "Users"))
+                  )
+                )
+            )
+        )
+            
+    );
+  },
+  selectCurrent : function(identifier,item) {
+    switch(identifier) {
+      case 'home' : 
+          $('.homeLI').hasClass('active') ? null : $('.homeLI').addClass('active') ;
+          $('.sitesLI').hasClass('active') ? $('.sitesLI').removeClass('active') : null ;
+          $('.toolsLI').hasClass('active') ? $('.toolsLI').removeClass('active') : null ;
+          $('.usersLI').hasClass('active') ? $('.usersLI').removeClass('active') : null ;
+          break;
+      case 'sites' : 
+          $('.homeLI').hasClass('active') ? $('.homeLI').removeClass('active') : null ;
+          $('.sitesLI').hasClass('active') ? null : $('.sitesLI').addClass('active') ;
+          $('.toolsLI').hasClass('active') ? $('.toolsLI').removeClass('active') : null ;
+          $('.usersLI').hasClass('active') ? $('.usersLI').removeClass('active') : null ;
+          break;
+      case 'tools' : 
+          $('.homeLI').hasClass('active') ? $('.homeLI').removeClass('active') : null ;
+          $('.sitesLI').hasClass('active') ? $('.sitesLI').removeClass('active') : null ;
+          $('.toolsLI').hasClass('active') ? null : $('.toolsLI').addClass('active') ;
+          $('.usersLI').hasClass('active') ? $('.usersLI').removeClass('active') : null ;
+          break;
+      case 'users' : 
+          $('.homeLI').hasClass('active') ? $('.homeLI').removeClass('active') : null ;
+          $('.sitesLI').hasClass('active') ? $('.sitesLI').removeClass('active') : null ;
+          $('.toolsLI').hasClass('active') ? $('.toolsLI').removeClass('active') : null ;
+          $('.usersLI').hasClass('active') ? null : $('.usersLI').addClass('active') ;
+          break;
+      default : console.log('option not available')
+          break;
+    }
+  }
+});
+
+module.exports = SideBar;
+
+},{"react":228,"react-router":33}],233:[function(require,module,exports){
 /************************
 Custom JS file
 Author : Sayanraj Guha
@@ -25218,6 +25280,9 @@ var hashHistory = ReactRouter.hashHistory;
 
 /* import components*/
 var Home = require('./pages/Home/Home');
+var SitesBoard = require('./pages/Sites/SitesBoard');
+var ToolsBoard = require('./pages/Tools/ToolsBoard');
+var UsersBoard = require('./pages/Users/UsersBoard');
 var Login = require('./pages/Login/Login');
 var SectionSelect = require('./pages/Login/SectionSelect');
 var App = require('./commons/App');
@@ -25229,14 +25294,17 @@ ReactDOM.render(
     React.createElement(Route, {path: "/", component: Login}), 
     React.createElement(Route, {path: "/sectionSelect", component: SectionSelect}), 
     React.createElement(Route, {path: "dashboard", component: App}, 
-      React.createElement(Route, {path: "home", component: Home})
+      React.createElement(Route, {path: "home", component: Home}), 
+      React.createElement(Route, {path: "sites", component: SitesBoard}), 
+      React.createElement(Route, {path: "tools", component: ToolsBoard}), 
+      React.createElement(Route, {path: "users", component: UsersBoard})
     )
   )
   ,
   document.getElementById('content')
 );
 
-},{"./commons/App":229,"./pages/Home/Home":233,"./pages/Login/Login":234,"./pages/Login/SectionSelect":235,"react":228,"react-dom":3,"react-router":33}],233:[function(require,module,exports){
+},{"./commons/App":229,"./pages/Home/Home":234,"./pages/Login/Login":235,"./pages/Login/SectionSelect":236,"./pages/Sites/SitesBoard":237,"./pages/Tools/ToolsBoard":238,"./pages/Users/UsersBoard":239,"react":228,"react-dom":3,"react-router":33}],234:[function(require,module,exports){
 /************************
 Custom JS file
 Author : Sayanraj Guha
@@ -25262,14 +25330,6 @@ var Home = React.createClass({displayName: "Home",
       React.createElement("div", null, 
         React.createElement("div", {className: "container-fluid"}, 
           React.createElement("div", {className: "row"}, 
-            React.createElement("div", {className: "col-sm-3 col-md-2 sidebar"}, 
-              React.createElement("ul", {className: "nav nav-sidebar"}, 
-                React.createElement("li", {className: "active"}, React.createElement("a", {href: "index.html"}, "Home ", React.createElement("span", {className: "sr-only"}, "(current)"))), 
-                React.createElement("li", null, React.createElement("a", {href: "sites.html"}, "Sites")), 
-                React.createElement("li", null, React.createElement("a", {href: "tools.html"}, "Tools")), 
-                React.createElement("li", null, React.createElement("a", {href: "users.html"}, "Users"))
-              )
-            ), 
             React.createElement("div", {className: "col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"}, 
               React.createElement("h1", {className: "page-header"}, "Welcome to your Dashboard, ", React.createElement("span", {id: "userName"}, "<user_name>"), " "), 
               React.createElement("div", {className: "content"}, 
@@ -25633,7 +25693,7 @@ var Home = React.createClass({displayName: "Home",
 });
 module.exports = Home;
 
-},{"react":228,"react-router":33}],234:[function(require,module,exports){
+},{"react":228,"react-router":33}],235:[function(require,module,exports){
 /************************
 Custom JS file
 Author : Sayanraj Guha
@@ -25729,7 +25789,7 @@ var Login = React.createClass({displayName: "Login",
 });
 module.exports = Login;
 
-},{"react":228,"react-router":33}],235:[function(require,module,exports){
+},{"react":228,"react-router":33}],236:[function(require,module,exports){
 /************************
 Custom JS file
 Author : Sayanraj Guha
@@ -25811,4 +25871,696 @@ var SectionSelect = React.createClass({displayName: "SectionSelect",
 });
 module.exports = SectionSelect;
 
-},{"react":228,"react-router":33}]},{},[232]);
+},{"react":228,"react-router":33}],237:[function(require,module,exports){
+/************************
+Custom JS file
+Author : Sayanraj Guha
+fileName : SitesBoard.js
+Description : JS file containing script for component SitesBoard
+All rights reserved.
+************************/
+/* import modules */
+var React = require('react');
+
+/* import components*/
+
+/* create components */
+var SitesBoard = React.createClass({displayName: "SitesBoard",
+  componentDidMount : function() {
+    document.body.style.paddingTop = '50px';
+  },
+  render : function() {
+    return (
+      React.createElement("div", null, 
+        React.createElement("div", {className: "container-fluid"}, 
+          React.createElement("div", {className: "row"}, 
+            React.createElement("div", {className: "col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"}, 
+              React.createElement("h1", {className: "page-header"}, "Sites"), 
+              React.createElement("div", {className: "content"}, 
+                React.createElement("div", {className: "row crudIcons crud"}, 
+                  React.createElement("div", {className: "col-xs-4 col-sm-4 col-md-4 col-lg-4 placeholder-secondary"}, 
+                    React.createElement("a", {href: "javascript:void(0)"}, 
+                      React.createElement("span", {className: "fa-stack stackAdd", id: ""}, 
+                        React.createElement("i", {className: "fa fa-circle fa-stack-2x linkCrudAdd"}), 
+                        React.createElement("i", {className: "fa fa-plus fa-stack-1x thumbIcon"})
+                      )
+                    )
+                  ), 
+                  React.createElement("div", {className: "col-xs-4 col-sm-4 col-md-4 col-lg-4 placeholder-secondary"}, 
+                    React.createElement("a", {href: "javascript:void(0)", className: "remove"}, 
+                      React.createElement("span", {className: "fa-stack stackRemove", id: ""}, 
+                        React.createElement("i", {className: "fa fa-circle fa-stack-2x linkCrudRemove"}), 
+                        React.createElement("i", {className: "fa fa-remove fa-stack-1x thumbIcon"})
+                      )
+                    )
+                  ), 
+                  React.createElement("div", {className: "col-xs-4 col-sm-4 col-md-4 col-lg-4 placeholder-secondary"}, 
+                    React.createElement("a", {href: "javascript:void(0)"}, 
+                      React.createElement("span", {className: "fa-stack stackFilter", id: ""}, 
+                        React.createElement("i", {className: "fa fa-circle fa-stack-2x linkCrudFilter"}), 
+                        React.createElement("i", {className: "fa fa-filter fa-stack-1x thumbIcon"})
+                      )
+                    )
+                  )
+                ), 
+                React.createElement("div", {className: "row crudIcons saveCancel"}, 
+                  React.createElement("div", {className: "col-xs-6 col-sm-6 col-md-6 col-lg-6 placeholder-secondary"}, 
+                    React.createElement("a", {href: "javascript:void(0)", className: "confirmRemove"}, 
+                      React.createElement("span", {className: "fa-stack stackRemoveConfirm", id: ""}, 
+                        React.createElement("i", {className: "fa fa-circle fa-stack-2x linkCrudRemove"}), 
+                        React.createElement("i", {className: "fa fa-check fa-stack-1x thumbIcon"})
+                      )
+                    )
+                  ), 
+                  React.createElement("div", {className: "col-xs-6 col-sm-6 col-md-6 col-lg-6 placeholder-secondary"}, 
+                    React.createElement("a", {href: "javascript:void(0)", className: "confirmRemove"}, 
+                      React.createElement("span", {className: "fa-stack stackRemoveCancel", id: ""}, 
+                        React.createElement("i", {className: "fa fa-circle fa-stack-2x linkCrudRemove"}), 
+                        React.createElement("i", {className: "fa fa-times-circle fa-stack-1x thumbIcon"})
+                      )
+                    )
+                  )
+                ), 
+                
+                React.createElement("div", {className: "row filterRow hidden"}, 
+                  React.createElement("div", {className: "col-xs-12 col-sm-6 col-md-6 col-lg-6"}, 
+                    React.createElement("select", {className: "form-control btn-success"}, 
+                      React.createElement("option", null, "Select Status"), 
+                      React.createElement("option", null, "Status 1"), 
+                      React.createElement("option", null, "Status 2"), 
+                      React.createElement("option", null, "Status 3")
+                    )
+                  ), 
+                  React.createElement("div", {className: "col-xs-12 col-sm-6 col-md-6 col-lg-6"}, 
+                    React.createElement("select", {className: "form-control btn-danger"}, 
+                      React.createElement("option", null, "Select Type"), 
+                      React.createElement("option", null, "Type 1"), 
+                      React.createElement("option", null, "Type 2"), 
+                      React.createElement("option", null, "Type 3")
+                    )
+                  )
+                ), 
+    		    React.createElement("div", {className: "card-list visible-xs visible-sm hidden-md hidden-lg"}, 
+                  React.createElement("a", {href: "#"}, 
+                    React.createElement("div", {className: "card card-inverse card-primary"}, 
+                      React.createElement("div", {className: "card-block"}, 
+                        React.createElement("div", {className: "container"}, 
+                          React.createElement("div", {className: "row"}, 
+                            React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                              React.createElement("h4", {className: "card-title"}, "Site Name 1")
+                            ), 
+                            React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                              React.createElement("h4", {className: "card-title"}, "[ID] Site ID 1")
+                            )
+                          ), 
+                          React.createElement("div", {className: "row"}, 
+                              React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                                React.createElement("p", {className: "card-text"}, "Status 1")
+                              ), 
+                              React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                                React.createElement("p", {className: "card-text"}, "Type 1")
+                              )
+                          ), 
+                          React.createElement("div", {className: "row"}, 
+                              React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                                React.createElement("p", {className: "card-text"}, "Address 1")
+                              ), 
+                              React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                                React.createElement("p", {className: "card-text"}, "Contact Person 1")
+                              )
+                          )
+                        )
+                      )
+                    )
+                  ), 
+                  React.createElement("a", {href: "#"}, 
+                    React.createElement("div", {className: "card card-inverse card-primary"}, 
+                      React.createElement("div", {className: "card-block"}, 
+                        React.createElement("div", {className: "container"}, 
+                          React.createElement("div", {className: "row"}, 
+                            React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                              React.createElement("h4", {className: "card-title"}, "Site Name 2")
+                            ), 
+                            React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                              React.createElement("h4", {className: "card-title"}, "[ID] Site ID 2")
+                            )
+                          ), 
+                          React.createElement("div", {className: "row"}, 
+                              React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                                React.createElement("p", {className: "card-text"}, "Status 2")
+                              ), 
+                              React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                                React.createElement("p", {className: "card-text"}, "Type 2")
+                              )
+                          ), 
+                          React.createElement("div", {className: "row"}, 
+                              React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                                React.createElement("p", {className: "card-text"}, "Address 2")
+                              ), 
+                              React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                                React.createElement("p", {className: "card-text"}, "Contact Person 2")
+                              )
+                          )
+                        )
+                      )
+                    )
+                  )
+    		    ), 
+                React.createElement("div", {className: "table-responsive visible-lg visible-md hidden-sm hidden-xs"}, 
+                  React.createElement("table", {className: "table table-hover"}, 
+                  React.createElement("thead", null, 
+                    React.createElement("tr", null, 
+                      React.createElement("th", null, "#"), 
+                      React.createElement("th", null, "Site Name"), 
+                      React.createElement("th", null, "Address"), 
+                      React.createElement("th", null, "Status"), 
+                      React.createElement("th", null, "Type"), 
+                      React.createElement("th", null, "Contact Person"), 
+                      React.createElement("th", {className: "detailsCell"}, React.createElement("i", {className: "fa fa-pencil"}))
+                    )
+                  ), 
+                  React.createElement("tbody", null, 
+                    React.createElement("tr", null, 
+                      React.createElement("th", {scope: "row"}, 
+                        React.createElement("span", {className: "slNo"}, "1"), 
+                        React.createElement("div", {className: "deleteColumn"}, 
+                          React.createElement("input", {type: "checkbox", name: "id", value: "item1"})
+                        )
+                      ), 
+                      React.createElement("td", null, "Demo Name 1"), 
+                      React.createElement("td", null, "Demo Address 1"), 
+                      React.createElement("td", null, "RUNNING"), 
+                      React.createElement("td", null, "ERECTION"), 
+                      React.createElement("td", null, "Jane Doe"), 
+                      React.createElement("td", {className: "detailsCell"}, 
+                        React.createElement("span", null, 
+                          React.createElement("a", {href: "javascript:void(0)"}, React.createElement("i", {className: "fa fa-edit"}))
+                        )
+                      )
+                    ), 
+                    React.createElement("tr", null, 
+                      React.createElement("th", {scope: "row"}, 
+                        React.createElement("span", {className: "slNo"}, "2"), 
+                      React.createElement("div", {className: "deleteColumn"}, 
+                        React.createElement("input", {type: "checkbox", name: "id", value: "item1"})
+                      )
+                      ), 
+                      React.createElement("td", null, "Demo Name 2"), 
+                      React.createElement("td", null, "Demo Address 2"), 
+                      React.createElement("td", null, "RUNNING"), 
+                      React.createElement("td", null, "STORE"), 
+                      React.createElement("td", null, "Mary Jane"), 
+                      React.createElement("td", {className: "detailsCell"}, 
+                        React.createElement("span", null, 
+                          React.createElement("a", {href: "javascript:void(0)"}, React.createElement("i", {className: "fa fa-edit"}))
+                        )
+                      )
+                    )
+                  )
+                )
+                )
+              )
+            )
+          )
+        )
+      )
+    );
+  }
+});
+module.exports = SitesBoard;
+
+},{"react":228}],238:[function(require,module,exports){
+/************************
+Custom JS file
+Author : Sayanraj Guha
+fileName : ToolsBoard.js
+Description : JS file containing script for component ToolsBoard
+All rights reserved.
+************************/
+/* import modules */
+var React = require('react');
+
+/* import components*/
+
+/* create components */
+var ToolsBoard = React.createClass({displayName: "ToolsBoard",
+  componentDidMount : function() {
+    document.body.style.paddingTop = '50px';
+  },
+  render : function() {
+    return (
+      React.createElement("div", null, 
+        React.createElement("div", {className: "container-fluid"}, 
+          React.createElement("div", {className: "row"}, 
+            React.createElement("div", {className: "col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"}, 
+              React.createElement("h1", {className: "page-header"}, "Tools"), 
+              React.createElement("div", {className: "content"}, 
+                React.createElement("div", {className: "row crudIcons crud"}, 
+                  React.createElement("div", {className: "col-lg-4 col-md-4 col-sm-4 col-xs-4 placeholder-secondary"}, 
+                    React.createElement("a", {href: "javascript:void(0)"}, 
+                      React.createElement("span", {className: "fa-stack stackAdd", id: ""}, 
+                        React.createElement("i", {className: "fa fa-circle fa-stack-2x linkCrudAdd"}), 
+                        React.createElement("i", {className: "fa fa-plus fa-stack-1x thumbIcon"})
+                      )
+                    )
+                  ), 
+                  React.createElement("div", {className: "col-lg-4 col-md-4 col-sm-4 col-xs-4 placeholder-secondary"}, 
+                    React.createElement("a", {href: "javascript:void(0)", className: "remove"}, 
+                      React.createElement("span", {className: "fa-stack stackRemove", id: ""}, 
+                        React.createElement("i", {className: "fa fa-circle fa-stack-2x linkCrudRemove"}), 
+                        React.createElement("i", {className: "fa fa-remove fa-stack-1x thumbIcon"})
+                      )
+                    )
+                  ), 
+                  React.createElement("div", {className: "col-lg-4 col-md-4 col-sm-4 col-xs-4 placeholder-secondary"}, 
+                    React.createElement("a", {href: "javascript:void(0)"}, 
+                      React.createElement("span", {className: "fa-stack stackFilter", id: ""}, 
+                        React.createElement("i", {className: "fa fa-circle fa-stack-2x linkCrudFilter"}), 
+                        React.createElement("i", {className: "fa fa-filter fa-stack-1x thumbIcon"})
+                      )
+                    )
+                  )
+                ), 
+                React.createElement("div", {className: "row crudIcons saveCancel"}, 
+                  React.createElement("div", {className: "col-lg-6 col-md-6 col-sm-6 col-xs-6 placeholder-secondary"}, 
+                    React.createElement("a", {href: "javascript:void(0)", className: "confirmRemove"}, 
+                      React.createElement("span", {className: "fa-stack stackRemoveConfirm", id: ""}, 
+                        React.createElement("i", {className: "fa fa-circle fa-stack-2x linkCrudRemove"}), 
+                        React.createElement("i", {className: "fa fa-check fa-stack-1x thumbIcon"})
+                      )
+                    )
+                  ), 
+                  React.createElement("div", {className: "col-lg-6 col-md-6 col-sm-6 col-xs-6 placeholder-secondary"}, 
+                    React.createElement("a", {href: "javascript:void(0)", className: "confirmRemove"}, 
+                      React.createElement("span", {className: "fa-stack stackRemoveCancel", id: ""}, 
+                        React.createElement("i", {className: "fa fa-circle fa-stack-2x linkCrudRemove"}), 
+                        React.createElement("i", {className: "fa fa-times-circle fa-stack-1x thumbIcon"})
+                      )
+                    )
+                  )
+                ), 
+                React.createElement("div", {className: "row filterRow hidden"}, 
+                  React.createElement("div", {className: "col-xs-12 col-sm-3 col-md-3 col-lg-3"}, 
+                    React.createElement("select", {className: "form-control btn-success"}, 
+                      React.createElement("option", null, "Select Status"), 
+                      React.createElement("option", null, "Status 1"), 
+                      React.createElement("option", null, "Status 2"), 
+                      React.createElement("option", null, "Status 3")
+                    )
+                  ), 
+                  React.createElement("div", {className: "col-xs-12 col-sm-3 col-md-3 col-lg-3"}, 
+                    React.createElement("select", {className: "form-control btn-danger"}, 
+                      React.createElement("option", null, "Select Site"), 
+                      React.createElement("option", null, "Site 1"), 
+                      React.createElement("option", null, "Site 2"), 
+                      React.createElement("option", null, "Site 3")
+                    )
+                  ), 
+                  React.createElement("div", {className: "col-xs-12 col-sm-3 col-md-3 col-lg-3"}, 
+                    React.createElement("select", {className: "form-control btn-primary"}, 
+                      React.createElement("option", null, "Select Category"), 
+                      React.createElement("option", null, "Category 1"), 
+                      React.createElement("option", null, "Category 2"), 
+                      React.createElement("option", null, "Category 3")
+                    )
+                  ), 
+                  React.createElement("div", {className: "col-xs-12 col-sm-3 col-md-3 col-lg-3"}, 
+                    React.createElement("select", {className: "form-control btn-warning"}, 
+                      React.createElement("option", null, "Select Group"), 
+                      React.createElement("option", null, "Group 1"), 
+                      React.createElement("option", null, "Group 2"), 
+                      React.createElement("option", null, "Group 3")
+                    )
+                  )
+                ), 
+    		    React.createElement("div", {className: "card-list visible-xs visible-sm hidden-md hidden-lg"}, 
+                  React.createElement("a", {href: "#"}, 
+                    React.createElement("div", {className: "card card-default"}, 
+                      React.createElement("div", {className: "card-block"}, 
+                        React.createElement("div", {className: "container"}, 
+                          React.createElement("div", {className: "row text-center"}, 
+                            React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                              React.createElement("h4", {className: "card-title"}, "Tool 1")
+                            ), 
+                            React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                              React.createElement("h4", {className: "card-title"}, "14")
+                            )
+                          ), 
+                          React.createElement("div", {className: "row"}, 
+                              React.createElement("div", {className: "col-sm-4 col-xs-4"}, 
+                                React.createElement("p", {className: "card-sub card-text"}, "[ID] Demo 1")
+                              ), 
+                              React.createElement("div", {className: "col-sm-4 col-xs-4"}, 
+                                React.createElement("p", {className: "card-sub card-text"}, "[Q] 1")
+                              ), 
+                              React.createElement("div", {className: "col-sm-4 col-xs-4"}, 
+                                React.createElement("p", {className: "card-sub card-text"}, "[Site] Site 1")
+                              )
+                          ), 
+                          React.createElement("div", {className: "row"}, 
+                              React.createElement("div", {className: "col-sm-4 col-xs-4"}, 
+                                React.createElement("p", {className: "label label-default"}, "Good Condition")
+                              ), 
+                              React.createElement("div", {className: "col-sm-4 col-xs-4"}, 
+                                React.createElement("p", {className: "label label-default"}, "Hand Tools")
+                              ), 
+                              React.createElement("div", {className: "col-sm-4 col-xs-4"}, 
+                                React.createElement("p", {className: "label label-default"}, "General Tools")
+                              )
+                          )
+                          
+                        )
+                      )
+                    )
+                  ), 
+                  React.createElement("a", {href: "#"}, 
+                    React.createElement("div", {className: "card card-default"}, 
+                      React.createElement("div", {className: "card-block"}, 
+                        React.createElement("div", {className: "container"}, 
+                          React.createElement("div", {className: "row text-center"}, 
+                            React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                              React.createElement("h4", {className: "card-title"}, "Tool 2")
+                            ), 
+                            React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                              React.createElement("h4", {className: "card-title"}, "5 TON")
+                            )
+                          ), 
+                          React.createElement("div", {className: "row"}, 
+                              React.createElement("div", {className: "col-sm-4 col-xs-4"}, 
+                                React.createElement("p", {className: "card-sub card-text"}, "[ID] Demo 2")
+                              ), 
+                              React.createElement("div", {className: "col-sm-4 col-xs-4"}, 
+                                React.createElement("p", {className: "card-sub card-text"}, "[Q] 1")
+                              ), 
+                              React.createElement("div", {className: "col-sm-4 col-xs-4"}, 
+                                React.createElement("p", {className: "card-sub card-text"}, "[Site] Site 2")
+                              )
+                          ), 
+                          React.createElement("div", {className: "row"}, 
+                              React.createElement("div", {className: "col-sm-4 col-xs-4"}, 
+                                React.createElement("p", {className: "label label-default"}, "Repairable")
+                              ), 
+                              React.createElement("div", {className: "col-sm-4 col-xs-4"}, 
+                                React.createElement("p", {className: "label label-default"}, "Lifting Tools")
+                              ), 
+                              React.createElement("div", {className: "col-sm-4 col-xs-4"}, 
+                                React.createElement("p", {className: "label label-default"}, "Capital Tools")
+                              )
+                          )
+                        )
+                      )
+                    )
+                  )
+    		    ), 
+                React.createElement("div", {className: "table-responsive visible-lg visible-md hidden-sm hidden-xs"}, 
+                  React.createElement("table", {className: "table table-bordered table-hover"}, 
+                    React.createElement("thead", null, 
+                      React.createElement("tr", null, 
+                        React.createElement("th", null, "#"), 
+                        React.createElement("th", null, "Tool ID"), 
+                        React.createElement("th", null, "Name"), 
+                        React.createElement("th", null, "Range/Size"), 
+                        React.createElement("th", null, "Status"), 
+                        React.createElement("th", null, "Category"), 
+                        React.createElement("th", null, "Group"), 
+                        React.createElement("th", null, "Site"), 
+                        React.createElement("th", null, "Quantity"), 
+                        React.createElement("th", null, "Comment"), 
+                        React.createElement("th", {className: "detailsCell"}, 
+                          React.createElement("i", {className: "fa fa-pencil"})
+                        )
+                      )
+                    ), 
+                    React.createElement("tbody", null, 
+                      React.createElement("tr", null, 
+                        React.createElement("th", {scope: "row"}, 
+                          React.createElement("span", {className: "slNo"}, "1"), 
+                          React.createElement("div", {className: "deleteColumn"}, 
+                            React.createElement("input", {type: "checkbox", name: "id", value: "item1"})
+                          )
+                        ), 
+                        React.createElement("td", null, "Demo 1"), 
+                        React.createElement("td", null, "Tool 1"), 
+                        React.createElement("td", null, "14"), 
+                        React.createElement("td", null, "Good Condition"), 
+                        React.createElement("td", null, "Hand Tools"), 
+                        React.createElement("td", null, "General Tools"), 
+                        React.createElement("td", null, "Demo Site 1"), 
+                        React.createElement("td", null, "1"), 
+                        React.createElement("td", null), 
+                        React.createElement("td", {className: "detailsCell"}, 
+                          React.createElement("span", null, 
+                          React.createElement("a", {href: "javascript:void(0)"}, React.createElement("i", {className: "fa fa-edit"})), 
+                          React.createElement("a", {href: "javascript:void(0)"}, React.createElement("i", {className: "fa fa-eye"}))
+                        )
+                        )
+                      ), 
+                      React.createElement("tr", null, 
+                        React.createElement("th", {scope: "row"}, 
+                          React.createElement("span", {className: "slNo"}, "2"), 
+                          React.createElement("div", {className: "deleteColumn"}, 
+                            React.createElement("input", {type: "checkbox", name: "id", value: "item1"})
+                          )
+                        ), 
+                        React.createElement("td", null, "Demo 2"), 
+                        React.createElement("td", null, "Demo Tool 2"), 
+                        React.createElement("td", null, "5 TON"), 
+                        React.createElement("td", null, "Repairable"), 
+                        React.createElement("td", null, "Lifting Tools"), 
+                        React.createElement("td", null, "Capital Tools"), 
+                        React.createElement("td", null, "HEAD OFFICE"), 
+                        React.createElement("td", null, "1"), 
+                        React.createElement("td", null, "Gone for Repair"), 
+                        React.createElement("td", {className: "detailsCell"}, 
+                          React.createElement("span", null, 
+                            React.createElement("a", {href: "javascript:void(0)"}, React.createElement("i", {className: "fa fa-edit"})), 
+                            React.createElement("a", {href: "javascript:void(0)"}, React.createElement("i", {className: "fa fa-eye"}))
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    );
+  }
+});
+module.exports = ToolsBoard;
+
+},{"react":228}],239:[function(require,module,exports){
+/************************
+Custom JS file
+Author : Sayanraj Guha
+fileName : UsersBoard.js
+Description : JS file containing script for component UsersBoard
+All rights reserved.
+************************/
+/* import modules */
+var React = require('react');
+
+/* import components*/
+
+/* create components */
+var UsersBoard = React.createClass({displayName: "UsersBoard",
+  componentDidMount : function() {
+    document.body.style.paddingTop = '50px';
+  },
+  render : function() {
+    return (
+      React.createElement("div", null, 
+        React.createElement("div", {className: "container-fluid"}, 
+          React.createElement("div", {className: "row"}, 
+            React.createElement("div", {className: "col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"}, 
+              React.createElement("h1", {className: "page-header"}, "Users"), 
+              React.createElement("div", {className: "content"}, 
+                React.createElement("div", {className: "row crudIcons crud"}, 
+                  React.createElement("div", {className: "col-xs-4 col-sm-4 col-md-4 col-lg-4 placeholder-secondary"}, 
+                    React.createElement("a", {href: "#addUserModal", "data-toggle": "modal", "data-target": "#addUserModal"}, 
+                      React.createElement("span", {className: "fa-stack stackAdd", id: ""}, 
+                        React.createElement("i", {className: "fa fa-circle fa-stack-2x linkCrudAdd"}), 
+                        React.createElement("i", {className: "fa fa-plus fa-stack-1x thumbIcon"})
+                      )
+                    )
+                  ), 
+                  React.createElement("div", {className: "col-xs-4 col-sm-4 col-md-4 col-lg-4 placeholder-secondary"}, 
+                    React.createElement("a", {href: "javascript:void(0)", className: "remove"}, 
+                      React.createElement("span", {className: "fa-stack stackRemove", id: ""}, 
+                        React.createElement("i", {className: "fa fa-circle fa-stack-2x linkCrudRemove"}), 
+                        React.createElement("i", {className: "fa fa-remove fa-stack-1x thumbIcon"})
+                      )
+                    )
+                  ), 
+                  React.createElement("div", {className: "col-xs-4 col-sm-4 col-md-4 col-lg-4 placeholder-secondary"}, 
+                    React.createElement("a", {href: "javascript:void(0)"}, 
+                      React.createElement("span", {className: "fa-stack stackFilter", id: ""}, 
+                        React.createElement("i", {className: "fa fa-circle fa-stack-2x linkCrudFilter"}), 
+                        React.createElement("i", {className: "fa fa-filter fa-stack-1x thumbIcon"})
+                      )
+                    )
+                  )
+                ), 
+                React.createElement("div", {className: "row crudIcons saveCancel"}, 
+                  React.createElement("div", {className: "col-xs-6 col-sm-6 col-md-6 col-lg-6 placeholder-secondary"}, 
+                    React.createElement("a", {href: "javascript:void(0)", className: "confirmRemove"}, 
+                      React.createElement("span", {className: "fa-stack stackRemoveConfirm", id: ""}, 
+                        React.createElement("i", {className: "fa fa-circle fa-stack-2x linkCrudRemove"}), 
+                        React.createElement("i", {className: "fa fa-check fa-stack-1x thumbIcon"})
+                      )
+                    )
+                  ), 
+                  React.createElement("div", {className: "col-xs-6 col-sm-6 col-md-6 col-lg-6 placeholder-secondary"}, 
+                    React.createElement("a", {href: "javascript:void(0)", className: "confirmRemove"}, 
+                      React.createElement("span", {className: "fa-stack stackRemoveCancel", id: ""}, 
+                        React.createElement("i", {className: "fa fa-circle fa-stack-2x linkCrudRemove"}), 
+                        React.createElement("i", {className: "fa fa-times-circle fa-stack-1x thumbIcon"})
+                      )
+                    )
+                  )
+                ), 
+                React.createElement("div", {className: "row filterRow hidden"}, 
+                  React.createElement("div", {className: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}, 
+                    React.createElement("select", {className: "form-control btn-default"}, 
+                      React.createElement("option", null, "Select Security"), 
+                      React.createElement("option", null, "Admin"), 
+                      React.createElement("option", null, "Moderator"), 
+                      React.createElement("option", null, "Employee")
+                    )
+                  )
+                ), 
+    			React.createElement("div", {className: "card-list visible-xs visible-sm hidden-md hidden-lg"}, 
+                  React.createElement("a", {href: "#"}, 
+                    React.createElement("div", {className: "card card-inverse card-success"}, 
+                      React.createElement("div", {className: "card-block"}, 
+                        React.createElement("div", {className: "container"}, 
+                          React.createElement("div", {className: "row"}, 
+                            React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                              React.createElement("h4", {className: "card-title"}, "Mark")
+                            ), 
+                            React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                              React.createElement("h4", {className: "card-title"}, "Otto")
+                            )
+                          ), 
+                          React.createElement("div", {className: "row"}, 
+                              React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                                React.createElement("p", {className: "card-text"}, "@mdo")
+                              ), 
+                              React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                                React.createElement("p", {className: "card-text"}, "admin")
+                              )
+                          )
+                        )
+                      )
+                    )
+                  ), 
+                  React.createElement("a", {href: "#"}, 
+                    React.createElement("div", {className: "card card-inverse card-success"}, 
+                      React.createElement("div", {className: "card-block"}, 
+                        React.createElement("div", {className: "container"}, 
+                          React.createElement("div", {className: "row"}, 
+                            React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                              React.createElement("h4", {className: "card-title"}, "Jacob")
+                            ), 
+                            React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                              React.createElement("h4", {className: "card-title"}, "Thornton")
+                            )
+                          ), 
+                          React.createElement("div", {className: "row"}, 
+                              React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                                React.createElement("p", {className: "card-text"}, "@fat")
+                              ), 
+                              React.createElement("div", {className: "col-sm-6 col-xs-6"}, 
+                                React.createElement("p", {className: "card-text"}, "moderator")
+                              )
+                          )
+                        )
+                      )
+                    )
+                  )
+    			), 
+                React.createElement("div", {className: "table-responsive table table-hover visible-lg visible-md hidden-sm hidden-xs"}, 
+                  React.createElement("table", {className: "table table-hover"}, 
+                  React.createElement("thead", null, 
+                    React.createElement("tr", null, 
+                      React.createElement("th", null, "#"), 
+                      React.createElement("th", null, "User ID"), 
+                      React.createElement("th", null, "First Name"), 
+                      React.createElement("th", null, "Last Name"), 
+                      React.createElement("th", null, "Security"), 
+                      React.createElement("th", {className: "detailsCell"}, 
+                          React.createElement("i", {className: "fa fa-pencil"})
+                      )
+                    )
+                  ), 
+                  React.createElement("tbody", null, 
+                    React.createElement("tr", null, 
+                      React.createElement("th", {scope: "row"}, 
+                        React.createElement("span", {className: "slNo"}, "1"), 
+                        React.createElement("div", {className: "deleteColumn"}, 
+                          React.createElement("input", {type: "checkbox", name: "userid", value: "user1"})
+                        )
+                      ), 
+                      React.createElement("td", null, "@mdo"), 
+                      React.createElement("td", null, "Mark"), 
+                      React.createElement("td", null, "Otto"), 
+                      React.createElement("td", null, "admin"), 
+                      React.createElement("td", {className: "detailsCell"}, 
+                        React.createElement("span", null, 
+                            React.createElement("a", {href: "javascript:void(0)"}, React.createElement("i", {className: "fa fa-edit"})), 
+                            React.createElement("a", {href: "javascript:void(0)"}, React.createElement("i", {className: "fa fa-eye"}))
+                          )
+                      )
+                    ), 
+                    React.createElement("tr", null, 
+                      React.createElement("th", {scope: "row"}, 
+                        React.createElement("span", {className: "slNo"}, "2"), 
+                        React.createElement("div", {className: "deleteColumn"}, 
+                          React.createElement("input", {type: "checkbox", name: "userid", value: "user2"})
+                        )
+                      ), 
+                      React.createElement("td", null, "@fat"), 
+                      React.createElement("td", null, "Jacob"), 
+                      React.createElement("td", null, "Thornton"), 
+                      React.createElement("td", null, "moderator"), 
+                      React.createElement("td", {className: "detailsCell"}, 
+                        React.createElement("span", null, 
+                            React.createElement("a", {href: "javascript:void(0)"}, React.createElement("i", {className: "fa fa-edit"})), 
+                            React.createElement("a", {href: "javascript:void(0)"}, React.createElement("i", {className: "fa fa-eye"}))
+                          )
+                      )
+                    ), 
+                    React.createElement("tr", null, 
+                      React.createElement("th", {scope: "row"}, 
+                        React.createElement("span", {className: "slNo"}, "3"), 
+                        React.createElement("div", {className: "deleteColumn"}, 
+                          React.createElement("input", {type: "checkbox", name: "userid", value: "user3"})
+                        )
+                      ), 
+                      React.createElement("td", null, "@twitter"), 
+                      React.createElement("td", null, "Larry"), 
+                      React.createElement("td", null, "The Bird"), 
+                      React.createElement("td", null, "employee"), 
+                      React.createElement("td", {className: "detailsCell"}, 
+                        React.createElement("span", null, 
+                            React.createElement("a", {href: "javascript:void(0)"}, React.createElement("i", {className: "fa fa-edit"})), 
+                            React.createElement("a", {href: "javascript:void(0)"}, React.createElement("i", {className: "fa fa-eye"}))
+                          )
+                      )
+                    )
+                  )
+                )
+                )
+              )
+            )
+          )
+        )
+      )
+    );
+  }
+});
+module.exports = UsersBoard;
+
+},{"react":228}]},{},[233]);

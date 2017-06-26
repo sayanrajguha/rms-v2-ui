@@ -16,6 +16,9 @@ var hashHistory = ReactRouter.hashHistory;
 
 /* import components*/
 var Home = require('./pages/Home/Home');
+var SitesBoard = require('./pages/Sites/SitesBoard');
+var ToolsBoard = require('./pages/Tools/ToolsBoard');
+var UsersBoard = require('./pages/Users/UsersBoard');
 var Login = require('./pages/Login/Login');
 var SectionSelect = require('./pages/Login/SectionSelect');
 var App = require('./commons/App');
@@ -28,6 +31,9 @@ ReactDOM.render(
     <Route path="/sectionSelect" component={SectionSelect} />
     <Route path="dashboard" component={App} >
       <Route path="home" component={Home} />
+      <Route path="sites" component={SitesBoard} />
+      <Route path="tools" component={ToolsBoard} />
+      <Route path="users" component={UsersBoard} />
     </Route>
   </Router>
   ,
